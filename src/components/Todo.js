@@ -23,10 +23,16 @@ const Todo = props => {
         };
     }, [todoName] );    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
 
+    const mouseMoveHandler = event => {
+        console.log(event.clientX, event.clientY);
+    }
+
     useEffect(() => {
-        document.addEventListener('mousemove', event => {
-            console.log(event.clientX, event.clientY);
-        });
+        document.addEventListener('mousemove', mouseMoveHandler);
+        // clanup return
+        return () => {
+            document.removeEventListener('mousemove', mouseMoveHandler);
+        }
     });
 
     // Change Handler for Multiple States
