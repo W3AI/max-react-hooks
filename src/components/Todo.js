@@ -2,34 +2,32 @@ import React, { useState } from 'react';
 
 const Todo = props => {
     // Using Multiple States
-    // const [todoName, setTodoName] = useState('');
-    // const [todoList, setTodoList] = useState([]);
+    const [todoName, setTodoName] = useState('');
+    const [todoList, setTodoList] = useState([]);
 
-    // Using One State
-    const [todoState, setTodoState] = useState({userInput: '', todoList: [] });
-
-    // Change Handler for One State
+    // Change Handler for Multiple States
     const inputChangeHandler = (event) => {
-        setTodoState({
-            userInput: event.target.value, 
-            todoList: todoState.todoList
-        });
+        setTodoName(event.target.value);
     };
 
     const todoAddHandler = () => {
-        setTodoState({
-            userInput: todoState.userInput, 
-            todoList: todoState.todoList.concat(todoState.userInput)
-        });
+        setTodoList(todoList.concat(todoName));
     };
 
-    // Change Handler for Multiple States
+    // Using One State
+    // const [todoState, setTodoState] = useState({userInput: '', todoList: [] });
+    // Change Handler for One State
     // const inputChangeHandler = (event) => {
-    //     setTodoName(event.target.value);
+    //     setTodoState({
+    //         userInput: event.target.value, 
+    //         todoList: todoState.todoList
+    //     });
     // };
-
     // const todoAddHandler = () => {
-    //     setTodoList(todoList.concat(todoName));
+    //     setTodoState({
+    //         userInput: todoState.userInput, 
+    //         todoList: todoState.todoList.concat(todoState.userInput)
+    //     });
     // };
 
     return <React.Fragment>
@@ -37,10 +35,10 @@ const Todo = props => {
         type="text" 
         placeholder="Todo" 
         onChange={inputChangeHandler} 
-        value={todoState.userInput}/>
+        value={todoName}/>
         <button type="button" onClick={todoAddHandler} >Add</button>
         <ul>
-            {todoState.todoList.map(todo => (
+            {todoList.map(todo => (
                 <li key={todo}>{todo}</li>
             ))}
         </ul>
