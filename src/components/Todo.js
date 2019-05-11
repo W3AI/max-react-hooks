@@ -17,7 +17,13 @@ const Todo = props => {
             }
             setTodoList(todos);
         });
-    }, [] );    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
+        // to use return as a cleanup after the last useEffect lines above
+        return () => {
+            console.log('Cleanup');
+        };
+    }, [todoName] );    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
+
+    // useEffect();
 
     // Change Handler for Multiple States
     const inputChangeHandler = (event) => {
