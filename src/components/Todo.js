@@ -21,7 +21,7 @@ const Todo = props => {
         return () => {
             console.log('Cleanup');
         };
-    }, [todoName] );    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
+    }, [] );    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
 
     const mouseMoveHandler = event => {
         console.log(event.clientX, event.clientY);
@@ -33,7 +33,7 @@ const Todo = props => {
         return () => {
             document.removeEventListener('mousemove', mouseMoveHandler);
         }
-    });
+    }, []); // with [] tasks are exec with didMount and cleanup at didUnmount
 
     // Change Handler for Multiple States
     const inputChangeHandler = (event) => {
