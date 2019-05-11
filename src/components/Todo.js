@@ -23,7 +23,11 @@ const Todo = props => {
         };
     }, [todoName] );    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
 
-    // useEffect();
+    useEffect(() => {
+        document.addEventListener('mousemove', event => {
+            console.log(event.clientX, event.clientY);
+        });
+    });
 
     // Change Handler for Multiple States
     const inputChangeHandler = (event) => {
