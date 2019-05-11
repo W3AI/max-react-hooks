@@ -10,6 +10,12 @@ const Todo = props => {
     useEffect(() => {
         axios.get('https://react-hooks-todos.firebaseio.com/todos.json').then(result => {
             console.log(result);
+            const todoData = result.data;
+            const todos = [];
+            for (const key in todoData) {
+                todos.push({id: key, name: todoData[key].name});
+            }
+            setTodoList(todos);
         });
     });
 
@@ -37,7 +43,7 @@ const Todo = props => {
         <button type="button" onClick={todoAddHandler}>Add</button>
         <ul>
             {todoList.map(todo => (
-                <li key={todo}>{todo}</li>
+                <li key={todo.id}>{todo.name}</li>
             ))}
         </ul>
     </React.Fragment>;
