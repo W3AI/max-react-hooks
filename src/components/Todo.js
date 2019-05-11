@@ -17,7 +17,7 @@ const Todo = props => {
             }
             setTodoList(todos);
         });
-    });
+    }, [] );    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
 
     // Change Handler for Multiple States
     const inputChangeHandler = (event) => {
