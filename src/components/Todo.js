@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Todo = props => {
     // Using Multiple States
     const [todoName, setTodoName] = useState('');
     const [todoList, setTodoList] = useState([]);
+
+    // useEffect - to include as input a function to execute when component loads first time
+    useEffect(() => {
+        axios.get('https://react-hooks-todos.firebaseio.com/todos.json').then(result => {
+            console.log(result);
+        });
+    });
 
     // Change Handler for Multiple States
     const inputChangeHandler = (event) => {
