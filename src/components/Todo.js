@@ -1,9 +1,11 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useState, useEffect, useReducer, useRef } from 'react';
 import axios from 'axios';
 
 import List from './List';
 
 const Todo = props => {
+
+    const [inputIsValid, setInputIsValid] = useState(false);
     // Using Multiple States
     // const [todoName, setTodoName] = useState('');
     // const [submittedTodo, setSubmittedTodo] = useState(null);
@@ -41,9 +43,17 @@ const Todo = props => {
         };
     }, []);    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
 
-    const mouseMoveHandler = event => {
-        console.log(event.clientX, event.clientY);
-    }
+    // const mouseMoveHandler = event => {
+    //     console.log(event.clientX, event.clientY);
+    // };
+
+    const inputValidationHandler = event => {
+        if (event.target.value.trim() === '') {
+            setInputIsValid(false);
+        } else {
+            setInputIsValid(true);
+        }
+    };
 
     // useEffect(() => {
     //     document.addEventListener('mousemove', mouseMoveHandler);
@@ -99,6 +109,8 @@ const Todo = props => {
                 type="text"
                 placeholder="Todo"
                 ref={todoInputRef}
+                onChange={inputValidationHandler}
+                style={{backgroundColor: inputIsValid ? 'transparent' : 'salmon'}}
                 />
             <button type="button" onClick={todoAddHandler}>
                 Add
