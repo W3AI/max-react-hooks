@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useRef } from 'react';
+import React, { useState, useEffect, useReducer, useRef, useMemo } from 'react';
 import axios from 'axios';
 
 import List from './List';
@@ -115,12 +115,18 @@ const Todo = props => {
             <button type="button" onClick={todoAddHandler}>
                 Add
         </button>
-        <List items={todoList} onClick={todoRemoveHandler} />
+        {useMemo(() => (
+                <List items={todoList} onClick={todoRemoveHandler} />
+            ), 
+            [todoList]
+            )}
         </React.Fragment>
     );
 };
 
 export default Todo;
+
+    // useMemo - to cache values where the state/vals don't change to avoid recalculation / re-rendering
 
     // Copied here from above return statement
     // Using One State
