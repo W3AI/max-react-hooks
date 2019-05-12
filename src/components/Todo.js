@@ -4,7 +4,7 @@ import axios from 'axios';
 const Todo = props => {
     // Using Multiple States
     const [todoName, setTodoName] = useState('');
-    const [submittedTodo, setSubmittedTodo] = useState(null);
+    // const [submittedTodo, setSubmittedTodo] = useState(null);
     // const [todoList, setTodoList] = useState([]);
 
     const todoListReducer = (state, action) => {
@@ -50,13 +50,13 @@ const Todo = props => {
         }
     }, []); // with [] tasks are exec with didMount and cleanup at didUnmount
 
-    useEffect(
-        () => {
-            if (submittedTodo) {
-                dispatch({type: 'ADD', payload: submittedTodo});
-            }
-        }, [submittedTodo]
-    );
+    // useEffect(
+    //     () => {
+    //         if (submittedTodo) {
+    //             dispatch({type: 'ADD', payload: submittedTodo});
+    //         }
+    //     }, [submittedTodo]
+    // );
 
     // Change Handler for Multiple States
     const inputChangeHandler = (event) => {
@@ -69,7 +69,8 @@ const Todo = props => {
             .then(res => {
                 setTimeout(() => {
                     const todoItem = { id: res.data.name, name: todoName };
-                    setSubmittedTodo(todoItem);
+                    // setSubmittedTodo(todoItem);
+                    dispatch({type: 'ADD', payload: todoItem});
                 }, 3000);
             })
             .catch(err => {
