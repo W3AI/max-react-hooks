@@ -78,8 +78,12 @@ const Todo = props => {
     };
 
     const todoRemoveHandler = todoId => {
-        dispatch({type: 'REMOVE', payload: todoId})
-    }
+        axios.delete(`https://react-hooks-todos.firebaseio.com/todos/${todoId}.json`)
+        .then(res => {
+            dispatch({type: 'REMOVE', payload: todoId})
+        })
+        .catch(err => console.log(err));
+    };
 
     return <React.Fragment>
         <input
