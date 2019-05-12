@@ -77,16 +77,24 @@ const Todo = props => {
             });
     };
 
+    const todoRemoveHandler = todoId => {
+        dispatch({type: 'REMOVE', payload: todoId})
+    }
+
     return <React.Fragment>
         <input
             type="text"
             placeholder="Todo"
             onChange={inputChangeHandler}
             value={todoName} />
-        <button type="button" onClick={todoAddHandler}>Add</button>
+        <button type="button" onClick={todoAddHandler}>
+            Add
+        </button>
         <ul>
             {todoList.map(todo => (
-                <li key={todo.id}>{todo.name}</li>
+                <li key={todo.id} onClick={todoRemoveHandler.bind(this, todo.id)}>
+                    {todo.name}
+                </li>
             ))}
         </ul>
     </React.Fragment>;
