@@ -45,13 +45,13 @@ const Todo = props => {
         console.log(event.clientX, event.clientY);
     }
 
-    useEffect(() => {
-        document.addEventListener('mousemove', mouseMoveHandler);
-        // clanup return
-        return () => {
-            document.removeEventListener('mousemove', mouseMoveHandler);
-        }
-    }, []); // with [] tasks are exec with didMount and cleanup at didUnmount
+    // useEffect(() => {
+    //     document.addEventListener('mousemove', mouseMoveHandler);
+    //     // clanup return
+    //     return () => {
+    //         document.removeEventListener('mousemove', mouseMoveHandler);
+    //     }
+    // }, []); // with [] tasks are exec with didMount and cleanup at didUnmount
 
     // useEffect(
     //     () => {
