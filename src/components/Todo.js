@@ -4,6 +4,7 @@ import axios from 'axios';
 const Todo = props => {
     // Using Multiple States
     const [todoName, setTodoName] = useState('');
+    const [submittedTodo, setSubmittedTodo] = useState(null);
     const [todoList, setTodoList] = useState([]);
 
     // useEffect - to include as input a function to execute when component loads first time
@@ -13,7 +14,7 @@ const Todo = props => {
             const todoData = result.data;
             const todos = [];
             for (const key in todoData) {
-                todos.push({id: key, name: todoData[key].name});
+                todos.push({ id: key, name: todoData[key].name });
             }
             setTodoList(todos);
         });
@@ -21,7 +22,7 @@ const Todo = props => {
         return () => {
             console.log('Cleanup');
         };
-    }, [] );    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
+    }, []);    // [array of predecessors tasks/vars] or [] for compDidMount / first comp load
 
     const mouseMoveHandler = event => {
         console.log(event.clientX, event.clientY);
@@ -35,6 +36,14 @@ const Todo = props => {
         }
     }, []); // with [] tasks are exec with didMount and cleanup at didUnmount
 
+    useEffect(
+        () => {
+            if (submittedTodo) {
+                setTodoList(todoList.concat(submittedTodo));
+            }
+        }, [submittedTodo, todoList]
+    );
+
     // Change Handler for Multiple States
     const inputChangeHandler = (event) => {
         setTodoName(event.target.value);
@@ -42,12 +51,12 @@ const Todo = props => {
 
     const todoAddHandler = () => {
         axios
-            .post('https://react-hooks-todos.firebaseio.com/todos.json', {name: todoName})
+            .post('https://react-hooks-todos.firebaseio.com/todos.json', { name: todoName })
             .then(res => {
                 setTimeout(() => {
-                    const todoItem = {id: res.data.name, name: todoName};
-                    setTodoList(todoList.concat(todoItem));
-                }, 3000 );
+                    const todoItem = { id: res.data.name, name: todoName };
+                    setSubmittedTodo(todoItem);
+                }, 3000);
             })
             .catch(err => {
                 console.log(err);
@@ -55,11 +64,11 @@ const Todo = props => {
     };
 
     return <React.Fragment>
-        <input 
-        type="text" 
-        placeholder="Todo" 
-        onChange={inputChangeHandler} 
-        value={todoName}/>
+        <input
+            type="text"
+            placeholder="Todo"
+            onChange={inputChangeHandler}
+            value={todoName} />
         <button type="button" onClick={todoAddHandler}>Add</button>
         <ul>
             {todoList.map(todo => (
