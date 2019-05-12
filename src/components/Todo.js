@@ -44,9 +44,12 @@ const Todo = props => {
         axios
             .post('https://react-hooks-todos.firebaseio.com/todos.json', {name: todoName})
             .then(res => {
-                const todoItem = {id: res.data.name, name: todoName};
-                setTodoList(todoList.concat(todoItem));
-            }).catch(err => {
+                setTimeout(() => {
+                    const todoItem = {id: res.data.name, name: todoName};
+                    setTodoList(todoList.concat(todoItem));
+                }, 3000 );
+            })
+            .catch(err => {
                 console.log(err);
             });
     };
